@@ -5,9 +5,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+from rest_framework import viewsets
 
 from .models import Choice
 from .models import Question
+from .serializers import QuestionSerializer
 
 # def index(request):
 #     latest_question_list = Question.objects.order_by("-pub_date")[:5]
@@ -43,6 +45,10 @@ class DetailView(generic.DetailView):
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, "polls/results.html", {"question": question})
+
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
 class ResultsView(generic.DetailView):
     model = Question
